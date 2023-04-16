@@ -11,9 +11,10 @@ nvm install v18
 
 * Install redis, then init user info with 10000 coins
 ```
-apt install redis-server
-redis-cli HSET chatgpt:your_username key your_key amount 10000
+# apt install redis-server
+docker run -d --name redis-stack -p 6379:6379 redis/redis-stack-server:latest
 # set your_username-your_key in app
+redis-cli HSET chatgpt:your_username key your_key amount 10000
 
 ```
 
