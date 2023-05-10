@@ -5,6 +5,7 @@ import logger from './log.js';
 import ChatgptProxy from './chatgptProxy.js';
 import { AzureTTS } from './azureTts.js';
 import { AzureTtsV2 } from './azureTtsV2.js';
+import AzureBing from './azureBing.js';
 import * as bson from 'bson';
 
 
@@ -35,6 +36,7 @@ const chatgptProxy = new ChatgptProxy();
 chatgptProxy.init()
 const azureTTS = new AzureTTS();
 const azureTtsV2 = new AzureTtsV2();
+const azureBing = new AzureBing();
 
 app.use(express.json({ extended: true, limit: '1mb' }))
 async function handle(req, res) {
@@ -134,6 +136,11 @@ async function handle(req, res) {
 				binaryData = bson.serialize(rt);
 				res.setHeader('content-type', 'application/bson');
 				res.send(binaryData)
+				break;
+			case '/api/v2/bing':
+				rt = await azureBing.search(text, req.body.count, req.body.getPageCount, req.body.offset);
+				res.type('json')
+				res.send(rt)
 				break;
 			default:
 				logger.info(`got invalid api: ${req.url}`);
