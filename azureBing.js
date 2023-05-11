@@ -52,7 +52,7 @@ class AzureBing {
 				$('style').remove();
 				const content = $('body').text();
 				const cleanContent = content.replace(/\s*\n+\s*/g, '\n').replace(/ +/g, ' ');
-				output[i].content = cleanContent;
+				output[i].content = Buffer.from(cleanContent).toString('base64');
 			}
 			logger.info(output)
 			return output
