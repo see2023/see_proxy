@@ -1,5 +1,6 @@
 {
 	"dependencies": {
+		"@dqbd/tiktoken": "^1.0.7",
 		"@keyv/redis": "^2.5.7",
 		"bson": "^5.2.0",
 		"chatgpt": "^5.2.2",
