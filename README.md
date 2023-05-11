@@ -20,7 +20,7 @@ redis-cli HSET chatgpt:your_username key your_key amount 10000
 
 * Start 
 ```
-# set OPENAI_API_KEY and AZURE_TTS_KEY in system environment variable'
+# set OPENAI_API_KEY, AZURE_TTS_KEY, AZURE_SUBSCRIPTION_KEY in system environment variable'
 npm i
 npm start
 
