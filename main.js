@@ -138,9 +138,20 @@ async function handle(req, res) {
 				res.send(binaryData)
 				break;
 			case '/api/v2/bing':
+				let cacheKey = `${REDIS_PREFIX}:bing:${text}:${req.body.count}:${req.body.getPageCount}:${req.body.offset}`
+				let cache = await redisClient.get(cacheKey)
+				if (cache) {
+					logger.debug(`got cache for ${cacheKey}`)
+					res.type('json')
+					// send jsonEncoded cache
+					res.send(JSON.parse(cache))
+					return
+				}
 				rt = await azureBing.search(text, req.body.count, req.body.getPageCount, req.body.offset);
 				res.type('json')
 				res.send(rt)
+				await redisClient.set(cacheKey, JSON.stringify(rt), 'EX', 60 * 60 * 24)
+				logger.debug(`set cache for ${cacheKey}`)
 				break;
 			default:
 				logger.info(`got invalid api: ${req.url}`);
