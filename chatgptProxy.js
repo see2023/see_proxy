@@ -24,9 +24,9 @@ class ChatgptProxy {
 		this._messageStore = new Keyv({ store: this._store, namespace: 'chatgpt-cache' })
 		this._gpt = new ChatGPTAPI({
 			apiKey: this._openai_api_key,
-			temperature: 0.5,
 			debug: this._debug,
 			completionParams: {
+				temperature: 0.5,
 				model: this._defaultModel
 			},
 			messageStore: this._messageStore,
@@ -45,7 +45,7 @@ class ChatgptProxy {
 			},
 		})
 	}
-	async sendMessage(text, modelInput, parentMessageId, systemMessage) {
+	async sendMessage(text, modelInput, parentMessageId, systemMessage, temperature = null) {
 		/*
 		request: {
 		  text: 'hello',
@@ -80,6 +80,11 @@ class ChatgptProxy {
 		}
 		if (systemMessage) {
 			opts.systemMessage = systemMessage;
+		}
+		if (temperature !== null && temperature !== undefined && temperature >= 0 && temperature <= 2) {
+			opts.completionParams = {
+				temperature: temperature
+			}
 		}
 
 		// get chatgpt response

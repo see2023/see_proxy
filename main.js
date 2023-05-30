@@ -98,7 +98,7 @@ async function handle(req, res) {
 	try {
 		switch (req.url) {
 			case '/api/v1/chatgpt':
-				rt = await chatgptProxy.sendMessage(text, req.body.model, req.body.parentMessageId, req.body.systemMessage)
+				rt = await chatgptProxy.sendMessage(text, req.body.model, req.body.parentMessageId, req.body.systemMessage, req.body.temperature)
 				res.type('json')
 				res.send(rt)
 				break;
@@ -119,7 +119,7 @@ async function handle(req, res) {
 				res.send(binaryData)
 				break;
 			case '/api/v2/combined':
-				rt = await chatgptProxy.sendMessage(text, req.body.model, req.body.parentMessageId, req.body.systemMessage)
+				rt = await chatgptProxy.sendMessage(text, req.body.model, req.body.parentMessageId, req.body.systemMessage, req.body.temperature)
 				if (rt.id && rt.text?.length > 0) {
 					try {
 						let rtTTS = await azureTtsV2.textToSpeechAndVisemes(rt.text, req.body.voiceName, req.body.outputFormat, req.body.role, req.body.style,
