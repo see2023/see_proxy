@@ -56,3 +56,6 @@ out/
 *.sh
 test_script/
 my_model/
+db
+*.txt
+py/

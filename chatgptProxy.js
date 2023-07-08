@@ -73,7 +73,6 @@ class ChatgptProxy {
 		if (modelInput && modelInput.match(/^[A-Za-z0-9-]+$/)) {
 			model = modelInput;
 		}
-		this._gpt.model = model;
 		let opts = {};
 		if (parentMessageId) {
 			opts.parentMessageId = parentMessageId;
@@ -81,10 +80,11 @@ class ChatgptProxy {
 		if (systemMessage) {
 			opts.systemMessage = systemMessage;
 		}
+		opts.completionParams = {
+			model: model
+		}
 		if (temperature !== null && temperature !== undefined && temperature >= 0 && temperature <= 2) {
-			opts.completionParams = {
-				temperature: temperature
-			}
+			opts.completionParams.temperature = temperature;
 		}
 
 		// get chatgpt response
