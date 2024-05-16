@@ -74,7 +74,7 @@ class ChatgptProxy {
 			model = modelInput;
 		}
 		if (model == 'gpt-4')
-			model = 'gpt-4-turbo-2024-04-09'
+			model = 'gpt-4o'
 		let opts = {};
 		if (parentMessageId) {
 			opts.parentMessageId = parentMessageId;
