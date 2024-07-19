@@ -73,8 +73,13 @@ class ChatgptProxy {
 		if (modelInput && modelInput.match(/^[A-Za-z0-9-]+$/)) {
 			model = modelInput;
 		}
-		if (model == 'gpt-4')
+		model = model.toLowerCase();
+		// if model start with gpt-4, change to gpt-4o
+		if (model.startsWith('gpt-4'))
 			model = 'gpt-4o'
+		// if model start with gpt-3, change to gpt-4o-mini
+		if (model.startsWith('gpt-3'))
+			model = 'gpt-4o-mini'
 		let opts = {};
 		if (parentMessageId) {
 			opts.parentMessageId = parentMessageId;
