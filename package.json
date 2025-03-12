@@ -10,7 +10,7 @@
 		"keyv": "^4.5.4",
 		"microsoft-cognitiveservices-speech-sdk": "^1.42.0",
 		"node-fetch": "^3.3.2",
-		"openai": "^3.3.0",
+		"openai": "^4.87.3",
 		"pino": "^8.21.0",
 		"pino-pretty": "^10.3.1",
 		"redis": "^4.7.0",
